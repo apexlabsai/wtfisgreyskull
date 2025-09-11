@@ -1,83 +1,108 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Your Plan — WTF is Greyskull?</title>
-    <style>
-      :root { --bg:#0f1115; --card:#161a22; --text:#e7e9ee; --muted:#9aa2b1; --accent:#67e8f9; }
-      body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
-      .container { max-width: 840px; margin: 48px auto; padding: 0 20px; }
-      .card { background: var(--card); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
-      h1 { margin: 0 0 6px; font-size: 30px; }
-      p.lede { margin: 0 0 18px; color: var(--muted); }
-      h2 { margin-top: 22px; font-size: 20px; }
-      ul { padding-left: 18px; }
-      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-      .pill { display:inline-block; background:#0e1219; border:1px solid #2a3140; padding:6px 10px; border-radius:999px; color:var(--muted); margin-right:8px; }
-      a { color: var(--accent); text-decoration: none; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="card">
-        <a href="{{ url_for('index') }}" class="pill">← start over</a>
-        <h1>{{ profile.name }}</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card" style="margin-top: 40px;">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary" style="display: inline-block; margin-bottom: 24px;">← Start Over</a>
+        
+        <div class="badge">{{ profile.name }}</div>
+        <h1>Your 60-sec plan</h1>
         <p class="lede">{{ vibe_line }}</p>
 
-        <div class="grid">
-          <div>
-            <h2>Your stats</h2>
-            <ul>
-              <li>Height: {{ user.height_cm }} cm</li>
-              <li>Weight: {{ user.weight_kg }} kg</li>
-              <li>Age: {{ user.age }}</li>
-              <li>BMI: {{ user.bmi }}</li>
-            </ul>
-          </div>
-          <div>
-            <h2>Daily fuel</h2>
-            <ul>
-              <li>Calories: ~{{ calories }} kcal</li>
-              <li>Protein: ~{{ macros.protein_g }} g</li>
-              <li>Carbs: ~{{ macros.carbs_g }} g</li>
-              <li>Fat: ~{{ macros.fat_g }} g</li>
-            </ul>
-          </div>
+        <div class="grid grid-2">
+            <div>
+                <h2>Your stats</h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Height: {{ user.height_cm }} cm</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Weight: {{ user.weight_kg }} kg</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Age: {{ user.age }}</li>
+                    <li style="padding: 8px 0;">BMI: {{ user.bmi }}</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Daily fuel</h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Calories: ~{{ calories }} kcal</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Protein: ~{{ macros.protein_g }} g</li>
+                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">Carbs: ~{{ macros.carbs_g }} g</li>
+                    <li style="padding: 8px 0;">Fat: ~{{ macros.fat_g }} g</li>
+                </ul>
+            </div>
         </div>
 
-        <h2>Workout split ({{ profile.split|length }} days/week)</h2>
-        <ul>
-          {% for day in profile.split %}
-            <li>{{ day }}</li>
-          {% endfor %}
-        </ul>
+        <div style="margin-top: 40px;">
+            <h2>Workout Split ({{ profile.split|length }} days/week)</h2>
+            <ul style="padding-left: 20px;">
+                {% for day in profile.split %}
+                    <li style="margin-bottom: 8px;">{{ day }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <h2>How to train for this vibe</h2>
-        <ul>
-          {% for note in profile.focus_notes %}
-            <li>{{ note }}</li>
-          {% endfor %}
-        </ul>
+        <div style="margin-top: 40px;">
+            <h2>How to train for this vibe</h2>
+            <ul style="padding-left: 20px;">
+                {% for note in profile.focus_notes %}
+                    <li style="margin-bottom: 8px;">{{ note }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <h2>Simple meals that hit your macros</h2>
-        <ul>
-          {% for m in meals %}
-            <li>{{ m }}</li>
-          {% endfor %}
-        </ul>
+        <div style="margin-top: 40px;">
+            <h2>Simple meals that hit your macros</h2>
+            <ul style="padding-left: 20px;">
+                {% for m in meals %}
+                    <li style="margin-bottom: 8px;">{{ m }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <h2>Lifestyle notes</h2>
-        <ul>
-          {% for tip in profile.lifestyle %}
-            <li>{{ tip }}</li>
-          {% endfor %}
-        </ul>
+        <div style="margin-top: 40px;">
+            <h2>Lifestyle notes</h2>
+            <ul style="padding-left: 20px;">
+                {% for tip in profile.lifestyle %}
+                    <li style="margin-bottom: 8px;">{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <p class="lede">Reminder: this is an MVP cheat sheet. If the scale stalls for 2–3 weeks, nudge calories by ~150–200 and keep steps high. Consistency > perfection.</p>
-      </div>
+        <p style="margin-top: 40px; padding: 20px; background: rgba(103, 232, 249, 0.05); border-radius: 8px; color: var(--muted); font-size: 14px;">
+            Reminder: this is an MVP cheat sheet. If the scale stalls for 2–3 weeks, nudge calories by ~150–200 and keep steps high. Consistency > perfection.
+        </p>
     </div>
-  </body>
-</html>
 
+    <!-- Email Capture -->
+    <div class="email-capture">
+        <h3 style="margin-top: 0; text-align: center;">Want this emailed + weekly tweaks?</h3>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 20px;">Enter your email (optional).</p>
+        
+        <form action="{{ url_for('email_capture') }}" method="post" style="max-width: 400px; margin: 0 auto;">
+            <input type="hidden" name="chosen_look" value="{{ profile.name }}" />
+            <input type="hidden" name="height_cm" value="{{ user.height_cm }}" />
+            <input type="hidden" name="weight_kg" value="{{ user.weight_kg }}" />
+            <input type="hidden" name="age" value="{{ user.age }}" />
+            
+            <div style="display: flex; gap: 12px;">
+                <input type="email" name="email" placeholder="your@email.com" required style="flex: 1;" />
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
+    </div>
 
+    <!-- Upsell Strip -->
+    <div class="upsell-strip">
+        <h3 style="margin-top: 0; color: var(--accent);">Upgrade to a personalized 12-week transformation</h3>
+        <p style="color: var(--muted); margin-bottom: 24px;">Weekly tweaks, chat check-ins, and plateaus solved.</p>
+        <a href="{{ url_for('upgrade') }}" class="btn btn-primary">See Upgrade Options</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <p>Not medical advice. Consult a professional.</p>
+    </div>
+</div>
+{% endblock %}

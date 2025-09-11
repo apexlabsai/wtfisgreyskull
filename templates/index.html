@@ -1,58 +1,117 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WTF is Greyskull? — Pick Your Movie Look</title>
-    <style>
-      :root { --bg:#0f1115; --card:#161a22; --text:#e7e9ee; --muted:#9aa2b1; --accent:#67e8f9; }
-      body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
-      .container { max-width: 720px; margin: 48px auto; padding: 0 20px; }
-      .card { background: var(--card); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
-      h1 { margin: 0 0 8px; font-size: 32px; }
-      p.lede { margin: 0 0 24px; color: var(--muted); }
-      label { display:block; margin: 14px 0 6px; color: var(--muted); }
-      select, input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #2a3140; background: #0e1219; color: var(--text); }
-      .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-      button { margin-top: 18px; width: 100%; padding: 14px 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, #22d3ee, #a78bfa); color: #0b1020; font-weight: 700; cursor: pointer; }
-      small.hint { color: var(--muted); display:block; margin-top:8px; }
-      a { color: var(--accent); text-decoration: none; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="card">
-        <h1>WTF is Greyskull?</h1>
-        <p class="lede">Tell us who you want to look like. We’ll translate the gym-speak into a clear plan you can actually do.</p>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="card" style="margin-top: 40px;">
+        <h1>Pick the movie look. Get the exact plan.</h1>
+        <p class="lede">Tell us who you want to look like. We translate gym-speak into a clear, doable routine.</p>
+        
         <form action="{{ url_for('plan') }}" method="post">
-          <label for="target">Pick your on-screen vibe</label>
-          <select id="target" name="target" required>
-            {% for key, profile in profiles.items() %}
-              <option value="{{ key }}">{{ profile.name }}</option>
-            {% endfor %}
-          </select>
+            <div class="form-group">
+                <label for="target">Pick your on-screen vibe</label>
+                <select id="target" name="target" required>
+                    {% for key, profile in profiles.items() %}
+                        <option value="{{ key }}">{{ profile.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-          <div class="row">
-            <div>
-              <label for="height_cm">Height (cm)</label>
-              <input id="height_cm" name="height_cm" type="number" step="1" min="120" max="230" placeholder="178" required />
+            <div class="grid grid-3">
+                <div class="form-group">
+                    <label for="height_cm">Height (cm)</label>
+                    <input id="height_cm" name="height_cm" type="number" step="1" min="120" max="230" placeholder="e.g. 178" required />
+                </div>
+                <div class="form-group">
+                    <label for="weight_kg">Weight (kg)</label>
+                    <input id="weight_kg" name="weight_kg" type="number" step="0.1" min="40" max="200" placeholder="e.g. 86" required />
+                </div>
+                <div class="form-group">
+                    <label for="age">Age (years)</label>
+                    <input id="age" name="age" type="number" step="1" min="13" max="90" placeholder="e.g. 27" required />
+                </div>
             </div>
-            <div>
-              <label for="weight_kg">Weight (kg)</label>
-              <input id="weight_kg" name="weight_kg" type="number" step="0.1" min="40" max="200" placeholder="75" required />
-            </div>
-            <div>
-              <label for="age">Age</label>
-              <input id="age" name="age" type="number" step="1" min="13" max="90" placeholder="28" required />
-            </div>
-          </div>
 
-          <button type="submit">Give me the plan</button>
-          <small class="hint">No signup. No jargon. Just the cheat sheet.</small>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 24px;">
+                Get My Free Plan
+            </button>
+            <p style="text-align: center; margin-top: 12px; color: var(--muted); font-size: 14px;">
+                No signup. No jargon. Just the cheat sheet.
+            </p>
         </form>
-      </div>
     </div>
-  </body>
-</html>
 
+    <!-- Trust Row -->
+    <div class="trust-row">
+        <div class="trust-item">
+            <div class="trust-icon"></div>
+            <span>Science-backed templates, no jargon</span>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon"></div>
+            <span>90-day timeline with weekly tweaks</span>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon"></div>
+            <span>Mobile-friendly plan you can follow at the gym</span>
+        </div>
+    </div>
 
+    <!-- Preview Section -->
+    <div class="preview-cards">
+        <h2 style="text-align: center; margin-bottom: 16px;">What you'll get in 60 seconds</h2>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 14px;">
+            Personalized 3–5 day split • Calories & macros • Simple meals • Cardio & steps • Sleep & supplement notes
+        </p>
+        
+        <div class="grid grid-3">
+            <div class="preview-card">
+                <h4>Workout Split</h4>
+                <p>4 days: Upper A / Lower A / Upper B / Lower B. 8–12 reps, stop 1–3 reps before failure. No 1RMs.</p>
+            </div>
+            <div class="preview-card">
+                <h4>Calories & Macros</h4>
+                <p>Example (178 cm, 86 kg): ~2,300 kcal; 180 g protein / 70 g fat / rest carbs. Illustration only; actual output varies.</p>
+            </div>
+            <div class="preview-card">
+                <h4>Lifestyle Rules</h4>
+                <p>8k–10k steps/day, 7.5 h sleep, creatine 5 g/day, 2–3 coffees max, 2–3 cardio sessions weekly (20–30 min).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq">
+        <h2 style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <button class="faq-question">Do I need a gym?</button>
+            <div class="faq-answer">Plans adapt to home/basic/full gym equipment.</div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">How many days/week?</button>
+            <div class="faq-answer">3–5 depending on target look and recovery.</div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">Cut or bulk?</button>
+            <div class="faq-answer">We set calories based on your measurements and target.</div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">Is this medical advice?</button>
+            <div class="faq-answer">No. Always consult a professional.</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <p>Not medical advice. Consult a professional.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card" style="margin-top: 40px; text-align: center;">
+        <h1>Upgrade Your Transformation</h1>
+        <p class="lede">Get personalized coaching, weekly adjustments, and guaranteed results in 12 weeks.</p>
+        
+        <a href="{{ url_for('index') }}" class="btn btn-secondary" style="display: inline-block; margin-bottom: 40px;">← Back to Free Plan</a>
+    </div>
+
+    <div class="grid grid-3" style="margin: 60px 0;">
+        <!-- Basic Plan -->
+        <div class="pricing-card">
+            <h3>Basic</h3>
+            <div class="pricing-price">$29<span style="font-size: 16px; color: var(--muted);">/month</span></div>
+            <ul class="pricing-features">
+                <li>✓ Weekly plan adjustments</li>
+                <li>✓ Email support</li>
+                <li>✓ Progress tracking</li>
+                <li>✓ Basic meal suggestions</li>
+                <li>✗ No 1-on-1 coaching</li>
+            </ul>
+            <button class="btn btn-secondary" style="width: 100%;">Choose Basic</button>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="pricing-card featured">
+            <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0b1020; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">MOST POPULAR</div>
+            <h3>Pro</h3>
+            <div class="pricing-price">$79<span style="font-size: 16px; color: var(--muted);">/month</span></div>
+            <ul class="pricing-features">
+                <li>✓ Everything in Basic</li>
+                <li>✓ 1-on-1 weekly check-ins</li>
+                <li>✓ Custom meal plans</li>
+                <li>✓ Form video reviews</li>
+                <li>✓ Priority support</li>
+                <li>✓ Plateaus solved</li>
+            </ul>
+            <button class="btn btn-primary" style="width: 100%;">Choose Pro</button>
+        </div>
+
+        <!-- Elite Plan -->
+        <div class="pricing-card">
+            <h3>Elite</h3>
+            <div class="pricing-price">$149<span style="font-size: 16px; color: var(--muted);">/month</span></div>
+            <ul class="pricing-features">
+                <li>✓ Everything in Pro</li>
+                <li>✓ Daily check-ins</li>
+                <li>✓ Personal chef consultation</li>
+                <li>✓ Supplement optimization</li>
+                <li>✓ 24/7 WhatsApp support</li>
+                <li>✓ Money-back guarantee</li>
+            </ul>
+            <button class="btn btn-secondary" style="width: 100%;">Choose Elite</button>
+        </div>
+    </div>
+
+    <!-- Features Comparison -->
+    <div class="card" style="margin: 60px 0;">
+        <h2 style="text-align: center; margin-bottom: 40px;">What's Included</h2>
+        
+        <div class="grid grid-2">
+            <div>
+                <h3>Weekly Adjustments</h3>
+                <p style="color: var(--muted);">Your plan evolves based on progress photos, measurements, and feedback. No more guessing.</p>
+            </div>
+            <div>
+                <h3>Personalized Coaching</h3>
+                <p style="color: var(--muted);">Get expert guidance on form, nutrition timing, and overcoming plateaus.</p>
+            </div>
+            <div>
+                <h3>Custom Meal Plans</h3>
+                <p style="color: var(--muted);">Tailored recipes and shopping lists that fit your lifestyle and preferences.</p>
+            </div>
+            <div>
+                <h3>Progress Tracking</h3>
+                <p style="color: var(--muted);">Photo analysis, measurement tracking, and data-driven adjustments.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Placeholder -->
+    <div class="card" style="margin: 60px 0; text-align: center;">
+        <h2>Success Stories</h2>
+        <p style="color: var(--muted); font-style: italic; margin: 40px 0;">
+            "I went from skinny to looking like I actually lift in 3 months. The weekly adjustments made all the difference."
+        </p>
+        <p style="color: var(--muted); font-size: 14px;">— Sarah M., Pro Plan user</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(103, 232, 249, 0.1), rgba(167, 139, 250, 0.1));">
+        <h2>Ready to Transform?</h2>
+        <p class="lede">Start with our free plan, then upgrade when you're ready for personalized coaching.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-right: 16px;">Get Free Plan</a>
+        <button class="btn btn-secondary">Contact Us</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <p>Not medical advice. Consult a professional.</p>
+    </div>
+</div>
+{% endblock %}

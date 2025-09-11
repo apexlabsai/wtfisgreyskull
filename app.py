@@ -3,10 +3,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for, flash
+import csv
+import os
+from datetime import datetime
 
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
 
 
 @dataclass(frozen=True)
@@ -215,6 +219,57 @@ def plan():
         macros=dict(protein_g=protein_g, carbs_g=carbs_g, fat_g=fat_g),
         meals=meals,
     )
+
+
+@app.route("/email_capture", methods=["POST"])
+def email_capture():
+    """Capture email addresses for follow-up (non-blocking)"""
+    try:
+        email = request.form.get("email", "").strip()
+        chosen_look = request.form.get("chosen_look", "")
+        height_cm = request.form.get("height_cm", "")
+        weight_kg = request.form.get("weight_kg", "")
+        age = request.form.get("age", "")
+        
+        if email and "@" in email:
+            # Create emails.csv if it doesn't exist
+            csv_file = "emails.csv"
+            file_exists = os.path.exists(csv_file)
+            
+            with open(csv_file, "a", newline="", encoding="utf-8") as f:
+                writer = csv.writer(f)
+                
+                # Write header if file is new
+                if not file_exists:
+                    writer.writerow(["timestamp", "email", "chosen_look", "height_cm", "weight_kg", "age"])
+                
+                # Write the data
+                writer.writerow([
+                    datetime.now().isoformat(),
+                    email,
+                    chosen_look,
+                    height_cm,
+                    weight_kg,
+                    age
+                ])
+            
+            flash("Thanks! We'll send you weekly tweaks.", "success")
+        else:
+            flash("Please enter a valid email address.", "error")
+            
+    except Exception as e:
+        # Silently fail - don't break the UX
+        print(f"Email capture error: {e}")
+        pass
+    
+    # Always redirect back to plan page
+    return redirect(url_for("index"))
+
+
+@app.route("/upgrade")
+def upgrade():
+    """Upgrade/pricing page"""
+    return render_template("upgrade.html")
 
 
 if __name__ == "__main__":
