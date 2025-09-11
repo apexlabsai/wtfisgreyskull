@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Plan — WTF is Greyskull?</title>
+    <style>
+      :root { --bg:#0f1115; --card:#161a22; --text:#e7e9ee; --muted:#9aa2b1; --accent:#67e8f9; }
+      body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
+      .container { max-width: 840px; margin: 48px auto; padding: 0 20px; }
+      .card { background: var(--card); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+      h1 { margin: 0 0 6px; font-size: 30px; }
+      p.lede { margin: 0 0 18px; color: var(--muted); }
+      h2 { margin-top: 22px; font-size: 20px; }
+      ul { padding-left: 18px; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .pill { display:inline-block; background:#0e1219; border:1px solid #2a3140; padding:6px 10px; border-radius:999px; color:var(--muted); margin-right:8px; }
+      a { color: var(--accent); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <a href="{{ url_for('index') }}" class="pill">← start over</a>
+        <h1>{{ profile.name }}</h1>
+        <p class="lede">{{ vibe_line }}</p>
+
+        <div class="grid">
+          <div>
+            <h2>Your stats</h2>
+            <ul>
+              <li>Height: {{ user.height_cm }} cm</li>
+              <li>Weight: {{ user.weight_kg }} kg</li>
+              <li>Age: {{ user.age }}</li>
+              <li>BMI: {{ user.bmi }}</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Daily fuel</h2>
+            <ul>
+              <li>Calories: ~{{ calories }} kcal</li>
+              <li>Protein: ~{{ macros.protein_g }} g</li>
+              <li>Carbs: ~{{ macros.carbs_g }} g</li>
+              <li>Fat: ~{{ macros.fat_g }} g</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>Workout split ({{ profile.split|length }} days/week)</h2>
+        <ul>
+          {% for day in profile.split %}
+            <li>{{ day }}</li>
+          {% endfor %}
+        </ul>
+
+        <h2>How to train for this vibe</h2>
+        <ul>
+          {% for note in profile.focus_notes %}
+            <li>{{ note }}</li>
+          {% endfor %}
+        </ul>
+
+        <h2>Simple meals that hit your macros</h2>
+        <ul>
+          {% for m in meals %}
+            <li>{{ m }}</li>
+          {% endfor %}
+        </ul>
+
+        <h2>Lifestyle notes</h2>
+        <ul>
+          {% for tip in profile.lifestyle %}
+            <li>{{ tip }}</li>
+          {% endfor %}
+        </ul>
+
+        <p class="lede">Reminder: this is an MVP cheat sheet. If the scale stalls for 2–3 weeks, nudge calories by ~150–200 and keep steps high. Consistency > perfection.</p>
+      </div>
+    </div>
+  </body>
+</html>
+
+

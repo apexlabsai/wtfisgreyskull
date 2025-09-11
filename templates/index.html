@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WTF is Greyskull? — Pick Your Movie Look</title>
+    <style>
+      :root { --bg:#0f1115; --card:#161a22; --text:#e7e9ee; --muted:#9aa2b1; --accent:#67e8f9; }
+      body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); }
+      .container { max-width: 720px; margin: 48px auto; padding: 0 20px; }
+      .card { background: var(--card); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+      h1 { margin: 0 0 8px; font-size: 32px; }
+      p.lede { margin: 0 0 24px; color: var(--muted); }
+      label { display:block; margin: 14px 0 6px; color: var(--muted); }
+      select, input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #2a3140; background: #0e1219; color: var(--text); }
+      .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+      button { margin-top: 18px; width: 100%; padding: 14px 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, #22d3ee, #a78bfa); color: #0b1020; font-weight: 700; cursor: pointer; }
+      small.hint { color: var(--muted); display:block; margin-top:8px; }
+      a { color: var(--accent); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>WTF is Greyskull?</h1>
+        <p class="lede">Tell us who you want to look like. We’ll translate the gym-speak into a clear plan you can actually do.</p>
+        <form action="{{ url_for('plan') }}" method="post">
+          <label for="target">Pick your on-screen vibe</label>
+          <select id="target" name="target" required>
+            {% for key, profile in profiles.items() %}
+              <option value="{{ key }}">{{ profile.name }}</option>
+            {% endfor %}
+          </select>
+
+          <div class="row">
+            <div>
+              <label for="height_cm">Height (cm)</label>
+              <input id="height_cm" name="height_cm" type="number" step="1" min="120" max="230" placeholder="178" required />
+            </div>
+            <div>
+              <label for="weight_kg">Weight (kg)</label>
+              <input id="weight_kg" name="weight_kg" type="number" step="0.1" min="40" max="200" placeholder="75" required />
+            </div>
+            <div>
+              <label for="age">Age</label>
+              <input id="age" name="age" type="number" step="1" min="13" max="90" placeholder="28" required />
+            </div>
+          </div>
+
+          <button type="submit">Give me the plan</button>
+          <small class="hint">No signup. No jargon. Just the cheat sheet.</small>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+
