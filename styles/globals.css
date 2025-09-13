@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom gradient backgrounds for archetype fallbacks */
+.lean-gradient {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.bulky-gradient {
+  background: linear-gradient(135deg, #8b4513, #a0522d);
+}
+
+.bodybuilder-gradient {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.kpop-gradient {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+}
+
+.superhero-gradient {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
